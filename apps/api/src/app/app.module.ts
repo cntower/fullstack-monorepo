@@ -4,9 +4,11 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostEntity } from './post/post.entity';
+import { PostsModule } from '../posts/posts.module';
 
 @Module({
   imports: [
+    PostsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
