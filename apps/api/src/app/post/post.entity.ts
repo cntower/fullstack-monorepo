@@ -1,9 +1,25 @@
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column } from "typeorm";
+import { ApiModelProperty } from '@nestjs/swagger';
+import { Exclude } from 'class-transformer';
 
 @Entity('post')
 export class PostEntity {
-  @PrimaryGeneratedColumn('uuid') id: string;
-  @Column('text') title: string;
-  @Column('text') description: string;
-  @CreateDateColumn() created: Date;
+  @ApiModelProperty()
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+  @ApiModelProperty()
+  @Column('text')
+  title: string;
+  @ApiModelProperty()
+  @Column('text')
+  description: string;
+  @Exclude()
+  @CreateDateColumn()
+  created: Date;
+}
+
+export class IPost {
+  readonly id?: string;
+  readonly title?: string;
+  readonly description?: string;
 }

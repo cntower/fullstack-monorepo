@@ -4,7 +4,9 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostEntity } from './post/post.entity';
-import { PostsModule } from '../posts/posts.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { DataInterceptor } from './util/data.interceptor';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -22,6 +24,12 @@ import { PostsModule } from '../posts/posts.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: DataInterceptor,
+    },
+  ]
 })
 export class AppModule { }
