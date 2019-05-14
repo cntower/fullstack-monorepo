@@ -5,9 +5,10 @@ import { AppService } from "./app.service";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostEntity } from './post/post.entity';
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
-import { DataInterceptor } from './util/data.interceptor';
+import { DataInterceptor } from './shared/data.interceptor';
 import { PostsModule } from './posts/posts.module';
 import { HttpErrorFilter } from './shared/http-error.filter';
+import { LoggingInterceptor } from './shared/logging.interceptor';
 
 @Module({
   imports: [
@@ -30,8 +31,10 @@ import { HttpErrorFilter } from './shared/http-error.filter';
     {
       provide: APP_INTERCEPTOR,
       useClass: DataInterceptor,
-    },
-    {
+    }, {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    }, {
       provide: APP_FILTER,
       useClass: HttpErrorFilter
     }
