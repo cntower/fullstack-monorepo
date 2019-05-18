@@ -19,9 +19,9 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('swagger', app, document);
-
   const globalPrefix = "api";
   app.setGlobalPrefix(globalPrefix);
+  app.enableCors();
   const port = process.env.API_PORT || 3333;
   await app.listen(port, () => {
     Logger.log(`Listening at http://localhost:${port}/${globalPrefix}, 'Bootstrap'`);

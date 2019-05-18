@@ -8,11 +8,15 @@ export class HttpErrorFilter extends BaseExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
+    console.log(exception);
     const status = exception instanceof HttpException
       ? exception.getStatus()
       : HttpStatus.INTERNAL_SERVER_ERROR;
-
+    const error = exception instanceof HttpException
+      ? exception.getResponse()
+      : 'Unknown error';
     const errorResponse = {
+      error,
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,

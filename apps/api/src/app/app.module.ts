@@ -1,14 +1,15 @@
-import { Module } from "@nestjs/common";
+import { Module, ValidationPipe } from "@nestjs/common";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostEntity } from './post/post.entity';
-import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
+import { APP_INTERCEPTOR, APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { DataInterceptor } from './shared/data.interceptor';
 import { PostsModule } from './posts/posts.module';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
+// import { ValidationPipe } from './shared/validation.pipe';
 
 @Module({
   imports: [
@@ -37,7 +38,11 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
     }, {
       provide: APP_FILTER,
       useClass: HttpErrorFilter
-    }
+    },
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
   ]
 })
 export class AppModule { }
