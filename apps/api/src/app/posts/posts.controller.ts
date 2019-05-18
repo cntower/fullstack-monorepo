@@ -15,7 +15,7 @@ import { Controller, Get, Put, Delete, Param, Body, Post } from '@nestjs/common'
 import { PostsService } from './posts/posts.service';
 import { ApiUseTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
-import { IPost, PostEntity } from '../post/post.entity';
+import { PostEntity } from '../post/post.entity';
 @ApiUseTags('posts')
 @Controller('posts')
 export class PostsController {
@@ -38,7 +38,7 @@ export class PostsController {
   }
 
   @Put(':id')
-  async updatePost(@Param('id') id: number, @Body() post: Partial<IPost>) {
+  async updatePost(@Param('id') id: number, @Body() post: Partial<PostEntity>) {
     return this.postsService.updatePost(id, post);
   }
 

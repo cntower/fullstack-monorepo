@@ -17,9 +17,3 @@ export class PostEntity {
   @CreateDateColumn()
   created: Date;
 }
-
-export class IPost {
-  readonly id?: string;
-  readonly title?: string;
-  readonly description?: string;
-}
