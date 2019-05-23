@@ -12,10 +12,10 @@ export class CreateDto {
 }
 
 import { Controller, Get, Put, Delete, Param, Body, Post } from '@nestjs/common';
-import { PostsService } from './posts/posts.service';
 import { ApiUseTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
-import { PostEntity } from '../post/post.entity';
+import { PostsService } from './posts.service';
+import { PostEntity } from './post.entity';
 @ApiUseTags('posts')
 @Controller('posts')
 export class PostsController {

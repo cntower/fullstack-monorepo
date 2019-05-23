@@ -1,15 +1,17 @@
 import { Module, ValidationPipe } from "@nestjs/common";
-
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostEntity } from './post/post.entity';
 import { APP_INTERCEPTOR, APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { DataInterceptor } from './shared/data.interceptor';
 import { PostsModule } from './posts/posts.module';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
 // import { ValidationPipe } from './shared/validation.pipe';
+import { UsersModule } from './users/users.module';
+import { PostEntity } from './posts/post.entity';
+import { UserEntity } from './users/user.entity';
+
 
 @Module({
   imports: [
@@ -21,10 +23,11 @@ import { LoggingInterceptor } from './shared/logging.interceptor';
       username: process.env.API_DB_USERNAME,
       password: process.env.API_DB_PASSWORD,
       database: process.env.API_DB_NAME,
-      entities: [PostEntity],
+      entities: [PostEntity, UserEntity],
       synchronize: true,
       logging: true
     }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
