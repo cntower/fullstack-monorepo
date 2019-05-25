@@ -35,10 +35,12 @@ import { UserEntity } from './users/user.entity';
     {
       provide: APP_INTERCEPTOR,
       useClass: DataInterceptor,
-    }, {
+    },
+    {
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
-    }, {
+    },
+    {
       provide: APP_FILTER,
       useClass: HttpErrorFilter
     },

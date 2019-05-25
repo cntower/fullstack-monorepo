@@ -14,6 +14,7 @@ async function bootstrap() {
     .setTitle('Posts')
     .setDescription('The posts API description')
     .setVersion('1.0')
+    .addTag('users')
     .addTag('posts')
     .setBasePath('api')
     .build();

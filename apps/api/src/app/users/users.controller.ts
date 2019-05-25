@@ -1,23 +1,27 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserDTO } from './user.dto';
-import { ApiResponse } from '@nestjs/swagger';
-import { UserEntity } from './user.entity';
+import { ApiResponse, ApiProduces, ApiUseTags } from '@nestjs/swagger';
+import { UserViewModel } from './models/user-view.model';
+import { UserRegisterModel } from './models/user-register.model';
 
+@ApiUseTags('users')
 @Controller()
 export class UsersController {
   constructor(private userService: UsersService) { }
   @Get('users')
-  @ApiResponse({status: 200, type: [UserEntity]})
-  showAllUsers() {
+  @ApiProduces('application/json')
+  @ApiResponse({ status: 200, type: [UserViewModel] })
+  showAllUsers(): Promise<UserViewModel[]> {
     return this.userService.showAllUsers();
   }
   @Post('login')
-  login(@Body() data: UserDTO) {
+  @ApiResponse({ status: 201, type: UserViewModel })
+  login(@Body() data: UserRegisterModel) {
     return this.userService.login(data);
   }
   @Post('register')
-  register(@Body() data: UserDTO) {
+  @ApiResponse({ status: 201, type: UserViewModel })
+  register(@Body() data: UserRegisterModel) {
     return this.userService.register(data)
   }
 }
