@@ -16,6 +16,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('users')
     .addTag('posts')
+    .addBearerAuth('Authorization', 'header', 'apiKey')
     .setBasePath('api')
     .build();
   const document = SwaggerModule.createDocument(app, options);

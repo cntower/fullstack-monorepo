@@ -6,13 +6,10 @@ import { UserViewModel } from './models/user-view.model';
 
 @Entity('user')
 export class UserEntity {
-  @ApiModelProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @ApiModelProperty()
   @CreateDateColumn()
   created: Date;
-  @ApiModelProperty()
   @Column({
     type: 'text',
     unique: true
@@ -35,7 +32,6 @@ export class UserEntity {
   async comparePassword(attempt: string) {
     return await bcrypt.compare(attempt, this.password);
   }
-  @ApiModelProperty()
   private get token() {
     const { id, username } = this;
     return jwt.sign({
