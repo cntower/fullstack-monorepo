@@ -1,4 +1,4 @@
-import { ApiModelProperty, ApiResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiModelProperty, ApiResponse, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 
 export class CreateDto {
   @ApiModelProperty()
@@ -11,39 +11,56 @@ export class CreateDto {
   readonly breed: string;
 }
 
-import { Controller, Get, Put, Delete, Param, Body, Post } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Param, Body, Post, UseGuards } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
-import { CreatePostDto } from './dto/create-post.dto';
+import { CreatePostDTO } from './models/create-post.dto';
 import { PostsService } from './posts.service';
 import { PostEntity } from './post.entity';
+import { AuthGuard } from '../shared/auth.guard';
+import { User } from '../shared/user.decorator';
+import { PostRO } from './models/post.ro';
 @ApiUseTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(private postsService: PostsService) { }
+
   @Get()
-  @ApiResponse({status: 200, type: [PostEntity]})
-  getPosts() {
+  @ApiResponse({ status: 200, type: [PostRO] })
+  getPosts(): Promise<PostRO[]> {
     return this.postsService.getPosts();
   }
   @Get(':id')
-  getPost(@Param('id') id: number) {
+  @ApiResponse({ status: 200, type: PostRO })
+  getPost(@Param('id') id: string): Promise<PostRO> {
     return this.postsService.getPost(id);
   }
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Create post' })
-  @ApiResponse({ status: 201, description: 'The post has been successfully created.' })
+  @ApiResponse({ status: 201, description: 'The post has been successfully created.', type: PostRO })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async createPost(@Body() createPost: CreatePostDto) {
-    return this.postsService.createPost(createPost);
+  async createPost(@User('id') userId, @Body() createPost: CreatePostDTO): Promise<PostRO> {
+    return this.postsService.createPost(userId, createPost);
   }
 
   @Put(':id')
-  async updatePost(@Param('id') id: number, @Body() post: Partial<PostEntity>) {
-    return this.postsService.updatePost(id, post);
+  @ApiBearerAuth()
+  @UseGuards(new AuthGuard())
+  @ApiOperation({ title: 'Update post' })
+  @ApiResponse({ status: 201, description: 'The post has been successfully updated.', type: PostRO })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async updatePost(@Param('id') id: string, @User('id') userId, @Body() post: Partial<PostEntity>): Promise<PostRO> {
+    return this.postsService.updatePost(id, userId, post);
   }
 
   @Delete(':id')
-  async deletePost(@Param('id') id: number) {
-    return this.postsService.deletePost(id);
+  @ApiBearerAuth()
+  @UseGuards(new AuthGuard())
+  @ApiOperation({ title: 'Delete post' })
+  @ApiResponse({ status: 201, description: 'The post has been successfully deleted.', type: String })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async deletePost(@Param('id') id: string, @User('id') userId): Promise<string> {
+    return this.postsService.deletePost(id, userId);
   }
 }

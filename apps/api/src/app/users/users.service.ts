@@ -9,7 +9,7 @@ import { UserViewModel } from './models/user-view.model';
 export class UsersService {
   constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>) { }
   async showAllUsers() {
-    const users = await this.userRepository.find();
+    const users = await this.userRepository.find({ relations: ['posts'] });
     return users.map(user => user.toResponseObject());
   }
 

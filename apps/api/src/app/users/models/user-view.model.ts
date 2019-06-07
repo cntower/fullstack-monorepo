@@ -1,4 +1,5 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { PostEntity } from '../../posts/post.entity';
 
 export class UserViewModel {
   @ApiModelProperty()
@@ -9,4 +10,6 @@ export class UserViewModel {
   username: string;
   @ApiModelPropertyOptional()
   token?: string;
+  @ApiModelPropertyOptional({ type: [PostEntity] })
+  posts?: PostEntity[];
 }

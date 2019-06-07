@@ -16,6 +16,7 @@ import { UserEntity } from './users/user.entity';
 @Module({
   imports: [
     PostsModule,
+    UsersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -27,7 +28,6 @@ import { UserEntity } from './users/user.entity';
       synchronize: true,
       logging: true
     }),
-    UsersModule,
   ],
   controllers: [AppController],
   providers: [
