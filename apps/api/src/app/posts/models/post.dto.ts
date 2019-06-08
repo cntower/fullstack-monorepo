@@ -1,8 +1,8 @@
 import { IsString } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { UserViewModel } from '../../users/models/user-view.model';
+import { UserRO } from '../../users/models/user.ro';
 
-export class CreatePostDTO {
+export class PostDTO {
   @ApiModelProperty()
   @IsString()
   readonly title: string;

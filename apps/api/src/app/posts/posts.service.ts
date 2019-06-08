@@ -2,9 +2,10 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostEntity } from './post.entity';
-import { CreatePostDTO } from './models/create-post.dto';
+import { PostDTO } from './models/post.dto';
 import { UserEntity } from '../users/user.entity';
 import { PostRO } from './models/post.ro';
+import { PostUserRO } from './models/post-user.ro';
 
 @Injectable()
 export class PostsService {
@@ -21,19 +22,19 @@ export class PostsService {
     }
   }
 
-  private toResponseObject(post: PostEntity): PostRO {
+  private toResponseObject(post: PostEntity): PostUserRO {
     console.log(post);
     return { ...post, author: post.author && post.author.toResponseObject() }
   }
 
-  async createPost(userId: string, postData: CreatePostDTO): Promise<PostRO> {
+  async createPost(userId: string, postData: PostDTO): Promise<PostUserRO> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     const post = await this.postRepository.create({ ...postData, author: user });
     await this.postRepository.save(post);
     return this.toResponseObject(post);
   }
 
-  async updatePost(id: string, userId: string, data: Partial<CreatePostDTO>): Promise<PostRO> {
+  async updatePost(id: string, userId: string, data: Partial<PostDTO>): Promise<PostUserRO> {
     const post = await this.postRepository.findOne({ where: { id }, relations: ['author'] });
     if (!post) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
@@ -51,14 +52,14 @@ export class PostsService {
     await this.postRepository.delete(id);
     return id;
   }
-  async getPost(id: string): Promise<PostRO> {
+  async getPost(id: string): Promise<PostUserRO> {
     const post = await this.postRepository.findOne({ where: { id }, relations: ['author'] });
     if (!post) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
     return post;
   }
-  async getPosts(): Promise<PostRO[]> {
+  async getPosts(): Promise<PostUserRO[]> {
     const posts = await this.postRepository.find({ relations: ['author'] });
     return posts.map(post => this.toResponseObject(post))
   }
