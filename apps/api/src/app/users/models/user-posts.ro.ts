@@ -13,4 +13,6 @@ export class UserPostsRO {
   token?: string;
   @ApiModelPropertyOptional({type: [PostRO]})
   posts?: PostRO[];
+  @ApiModelPropertyOptional({type: [PostRO]})
+  bookmarks?: PostRO[];
 }

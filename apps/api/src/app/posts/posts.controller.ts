@@ -20,6 +20,7 @@ import { AuthGuard } from '../shared/auth.guard';
 import { User } from '../shared/user.decorator';
 import { PostRO } from './models/post.ro';
 import { PostUserRO } from './models/post-user.ro';
+import { Votes } from '../shared/votes.enum';
 @ApiUseTags('posts')
 @Controller('posts')
 export class PostsController {
@@ -63,5 +64,42 @@ export class PostsController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async deletePost(@Param('id') id: string, @User('id') userId): Promise<string> {
     return this.postsService.deletePost(id, userId);
+  }
+
+
+  @Post(':id/upvote')
+  @ApiBearerAuth()
+  @UseGuards(new AuthGuard())
+  @ApiOperation({ title: 'Upvote post' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async upvotePost(@Param('id') id: string, @User('id') userId) {
+    return this.postsService.vote(id, userId, Votes.UP);
+  }
+
+  @Post(':id/downvote')
+  @ApiBearerAuth()
+  @UseGuards(new AuthGuard())
+  @ApiOperation({ title: 'Down vote post' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async downvotePost(@Param('id') id: string, @User('id') userId) {
+    return this.postsService.vote(id, userId, Votes.DOWN);
+  }
+
+  @Post(':id/bookmark')
+  @ApiBearerAuth()
+  @UseGuards(new AuthGuard())
+  @ApiOperation({ title: 'Bookmark post' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async bookmarkPost(@Param('id') id: string, @User('id') userId) {
+    return this.postsService.bookmark(id, userId);
+  }
+
+  @Delete(':id/bookmark')
+  @ApiBearerAuth()
+  @UseGuards(new AuthGuard())
+  @ApiOperation({ title: 'Unbookmark post' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async unbookmarkPost(@Param('id') id: string, @User('id') userId) {
+    return this.postsService.unbookmark(id, userId);
   }
 }

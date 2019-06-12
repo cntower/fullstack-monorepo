@@ -9,7 +9,7 @@ import { UserRO } from './models/user.ro';
 export class UsersService {
   constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>) { }
   async showAllUsers() {
-    const users = await this.userRepository.find({ relations: ['posts'] });
+    const users = await this.userRepository.find({ relations: ['posts', 'bookmarks'] });
     return users.map(user => user.toResponseObject());
   }
 

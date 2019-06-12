@@ -4,7 +4,7 @@ import { UserRO } from '../../users/models/user.ro';
 
 export class PostUserRO {
   @ApiModelProperty()
-  id?:string;
+  id?: string;
   @ApiModelProperty()
   @IsString()
   readonly title: string;
@@ -17,4 +17,8 @@ export class PostUserRO {
   updated?: Date;
   @ApiModelProperty()
   author?: UserRO;
+  @ApiModelProperty()
+  upvotes?: number;
+  @ApiModelProperty()
+  downvotes?: number;
 }

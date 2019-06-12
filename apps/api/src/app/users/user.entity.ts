@@ -1,9 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { UserRO } from './models/user.ro';
 import { PostEntity } from '../posts/post.entity';
-import { PostRO } from '../posts/models/post.ro';
 import { UserPostsRO } from './models/user-posts.ro';
 
 @Entity('user')
@@ -29,18 +27,22 @@ export class UserEntity {
   @OneToMany(type => PostEntity, post => post.author)
   posts: PostEntity[];
 
+  @ManyToMany(type => PostEntity, { cascade: true })
+  @JoinTable()
+  bookmarks: PostEntity[];
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);
   }
 
   toResponseObjectWithToken(): UserPostsRO {
-    const { id, created, username, token, posts } = this;
-    return { id, created, username, token, posts }
+    const { id, created, username, token, posts, bookmarks } = this;
+    return { id, created, username, token, posts, bookmarks }
   }
   toResponseObject(): UserPostsRO {
-    const { id, created, username, posts } = this;
-    return { id, created, username, posts }
+    const { id, created, username, posts, bookmarks } = this;
+    return { id, created, username, posts, bookmarks }
   }
   async comparePassword(attempt: string) {
     return await bcrypt.compare(attempt, this.password);
