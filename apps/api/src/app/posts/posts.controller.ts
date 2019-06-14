@@ -15,12 +15,12 @@ import { Controller, Get, Put, Delete, Param, Body, Post, UseGuards } from '@nes
 import { ApiUseTags } from '@nestjs/swagger';
 import { PostDTO } from './models/post.dto';
 import { PostsService } from './posts.service';
-import { PostEntity } from './post.entity';
 import { AuthGuard } from '../shared/auth.guard';
 import { User } from '../shared/user.decorator';
 import { PostRO } from './models/post.ro';
 import { PostUserRO } from './models/post-user.ro';
 import { Votes } from '../shared/votes.enum';
+import { PostEntity } from '../entities';
 @ApiUseTags('posts')
 @Controller('posts')
 export class PostsController {

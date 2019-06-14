@@ -1,5 +1,4 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
-import { PostEntity } from '../../posts/post.entity';
 import { PostRO } from '../../posts/models/post.ro';
 
 export class UserPostsRO {

@@ -1,12 +1,8 @@
 import { IsString } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export class PostDTO {
+export class CommentDTO {
   @ApiModelProperty()
   @IsString()
-  readonly title: string;
-
-  @ApiModelProperty()
-  @IsString()
-  readonly description: string;
+  comment: string;
 }

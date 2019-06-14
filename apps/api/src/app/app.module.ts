@@ -4,19 +4,18 @@ import { AppService } from "./app.service";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_INTERCEPTOR, APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { DataInterceptor } from './shared/data.interceptor';
+import { CommentsModule } from './comments/comments.module';
+// import { CommentEntity } from './comments/comment.entity';
+import { UsersModule } from './users/users.module';
+import { UserEntity } from './entities';
 import { PostsModule } from './posts/posts.module';
+import { PostEntity } from './entities';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
-// import { ValidationPipe } from './shared/validation.pipe';
-import { UsersModule } from './users/users.module';
-import { PostEntity } from './posts/post.entity';
-import { UserEntity } from './users/user.entity';
-
+import { CommentEntity } from './entities';
 
 @Module({
   imports: [
-    PostsModule,
-    UsersModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -24,10 +23,13 @@ import { UserEntity } from './users/user.entity';
       username: process.env.API_DB_USERNAME,
       password: process.env.API_DB_PASSWORD,
       database: process.env.API_DB_NAME,
-      entities: [PostEntity, UserEntity],
+      entities: [ UserEntity, CommentEntity, PostEntity, ],
       synchronize: true,
       logging: true
     }),
+    PostsModule,
+    UsersModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [

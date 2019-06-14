@@ -1,16 +1,14 @@
-import { IsString } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import { UserRO } from '../../users/models/user.ro';
+import { CommentRO } from '../../comments/models/comment.ro';
 
 export class PostUserRO {
   @ApiModelProperty()
   id?: string;
   @ApiModelProperty()
-  @IsString()
-  readonly title: string;
+  title: string;
   @ApiModelProperty()
-  @IsString()
-  readonly description: string;
+  description: string;
   @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
   created?: Date;
   @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
@@ -21,4 +19,6 @@ export class PostUserRO {
   upvotes?: number;
   @ApiModelProperty()
   downvotes?: number;
+  @ApiModelPropertyOptional({ type: [CommentRO] })
+  comments?: CommentRO[];
 }

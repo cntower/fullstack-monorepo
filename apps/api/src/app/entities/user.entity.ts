@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { PostEntity } from '../posts/post.entity';
-import { UserPostsRO } from './models/user-posts.ro';
+import { PostEntity } from './post.entity';
+import { UserPostsRO } from '../users/models/user-posts.ro';
 
 @Entity('user')
 export class UserEntity {
