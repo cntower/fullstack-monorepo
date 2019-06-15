@@ -1,8 +1,8 @@
 # FullstackMonorepo
 
-This project was generated using [Nx](https://nx.dev).
+Application based on the Kelvin Mai course [Ideas App](https://www.youtube.com/watch?v=NF9Xn4g5MJY&list=PLBeQxJQNprbiJm55q7nTAfhMmzIC8MWxc)
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+This project was generated using [Nx](https://nx.dev).
 
 🔎 **Nx is a set of Angular CLI power-ups for modern development.**
 
