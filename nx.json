@@ -19,6 +19,9 @@
     },
     "api-interface": {
       "tags": []
+    },
+    "data-loader": {
+      "tags": []
     }
   }
 }

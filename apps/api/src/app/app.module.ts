@@ -25,7 +25,8 @@ import { CommentEntity } from './entities';
       database: process.env.API_DB_NAME,
       entities: [ UserEntity, CommentEntity, PostEntity, ],
       synchronize: true,
-      logging: true
+      logging: true,
+      dropSchema: true
     }),
     PostsModule,
     UsersModule,
