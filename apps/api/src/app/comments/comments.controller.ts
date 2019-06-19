@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, UseGuards, Body, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, UseGuards, Body, Delete, Query } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { AuthGuard } from '../shared/auth.guard';
@@ -14,13 +14,13 @@ export class CommentsController {
   constructor(private commentService: CommentsService) { }
 
   @Get('post/:postId')
-  getCommentsByPost(@Param('postId') postId: string): Promise<CommentPostRO[]> {
-    return this.commentService.getCommentsByPost(postId);
+  getCommentsByPost(@Param('postId') postId: string, @Query('page') page: number): Promise<CommentPostRO[]> {
+    return this.commentService.getCommentsByPost(postId, page);
   }
 
   @Get('user/:userId')
-  getCommentsByUser(@Param('userId') userId: string): Promise<CommentPostRO[]> {
-    return this.commentService.getCommentsByUser(userId);
+  getCommentsByUser(@Param('userId') userId: string, @Query('page') page: number): Promise<CommentPostRO[]> {
+    return this.commentService.getCommentsByUser(userId, page);
   }
 
   @Post('post/:postId')

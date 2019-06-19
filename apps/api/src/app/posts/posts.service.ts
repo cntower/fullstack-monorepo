@@ -119,8 +119,12 @@ export class PostsService {
     }
     return this.toResponseObject(post);
   }
-  async getPosts(): Promise<PostUserRO[]> {
-    const posts = await this.postRepository.find({ relations: ['author', 'upvotes', 'downvotes'] });
+  async getPosts(page = 1): Promise<PostUserRO[]> {
+    const posts = await this.postRepository.find({
+      relations: ['author', 'upvotes', 'downvotes'],
+      take: 25,
+      skip: 25 * (page - 1)
+    });
     return posts.map(post => this.toResponseObject(post))
   }
 }

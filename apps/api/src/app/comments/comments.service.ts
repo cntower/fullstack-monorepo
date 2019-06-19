@@ -11,12 +11,20 @@ import { CommentRO } from './models/comment.ro';
 
 @Injectable()
 export class CommentsService {
-  async getCommentsByUser(userId: string): Promise<CommentPostRO[]> {
-    const comments = await this.commentRepository.find({ where: { author: userId } }); // relations?
+  async getCommentsByUser(userId: string, page = 1): Promise<CommentPostRO[]> {
+    const comments = await this.commentRepository.find({
+      where: { author: userId },
+      take: 25,
+      skip: 25 * (page - 1)
+    }); // relations?
     return comments;
   }
-  async getCommentsByPost(postId: string): Promise<CommentPostRO[]> {
-    const comments = await this.commentRepository.find({ where: { post: postId } });
+  async getCommentsByPost(postId: string, page = 1): Promise<CommentPostRO[]> {
+    const comments = await this.commentRepository.find({
+      where: { post: postId },
+      take: 25,
+      skip: 25 * (page - 1)
+    });
     return comments;
   }
   async createComment(postId: string, userId: any, data: CommentDTO): Promise<CommentPostRO> {

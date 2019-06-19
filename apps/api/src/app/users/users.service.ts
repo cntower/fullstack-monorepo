@@ -8,8 +8,12 @@ import { UserRO } from './models/user.ro';
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>) { }
-  async showAllUsers() {
-    const users = await this.userRepository.find({ relations: ['posts', 'bookmarks'] });
+  async showAllUsers(page = 1) {
+    const users = await this.userRepository.find({
+      relations: ['posts', 'bookmarks'],
+      take: 25,
+      skip: 25 * (page - 1)
+    });
     return users.map(user => user.toResponseObject());
   }
 

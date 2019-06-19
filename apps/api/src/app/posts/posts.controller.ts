@@ -11,7 +11,7 @@ export class CreateDto {
   readonly breed: string;
 }
 
-import { Controller, Get, Put, Delete, Param, Body, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Param, Body, Post, UseGuards, Query } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { PostDTO } from './models/post.dto';
 import { PostsService } from './posts.service';
@@ -28,8 +28,8 @@ export class PostsController {
 
   @Get()
   @ApiResponse({ status: 200, type: [PostUserRO] })
-  getPosts(): Promise<PostRO[]> {
-    return this.postsService.getPosts();
+  getPosts(@Query('page') page: number): Promise<PostRO[]> {
+    return this.postsService.getPosts(page);
   }
   @Get(':id')
   @ApiResponse({ status: 200, type: PostRO })

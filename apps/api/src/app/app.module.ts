@@ -26,7 +26,7 @@ import { CommentEntity } from './entities';
       entities: [ UserEntity, CommentEntity, PostEntity, ],
       synchronize: true,
       logging: true,
-      dropSchema: true
+      // dropSchema: true
     }),
     PostsModule,
     UsersModule,

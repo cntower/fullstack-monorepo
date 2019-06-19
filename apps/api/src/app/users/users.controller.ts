@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiResponse, ApiProduces, ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { UserRO } from './models/user.ro';
@@ -15,8 +15,8 @@ export class UsersController {
   @UseGuards(new AuthGuard())
   @ApiProduces('application/json')
   @ApiResponse({ status: 200, type: [UserPostsRO] })
-  showAllUsers(): Promise<UserPostsRO[]> {
-    return this.userService.showAllUsers();
+  showAllUsers(@Query('page') page: number): Promise<UserPostsRO[]> {
+    return this.userService.showAllUsers(page);
   }
   @Post('login')
   @ApiResponse({ status: 201, type: UserRO })
