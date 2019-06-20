@@ -13,6 +13,7 @@ import { PostEntity } from './entities';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
 import { CommentEntity } from './entities';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
   imports: [
@@ -27,6 +28,10 @@ import { CommentEntity } from './entities';
       synchronize: true,
       logging: true,
       // dropSchema: true
+    }),
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
+      // autoSchemaFile: 'schema.gql',
     }),
     PostsModule,
     UsersModule,
@@ -50,7 +55,7 @@ import { CommentEntity } from './entities';
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
-    },
+    }
   ]
 })
 export class AppModule { }
