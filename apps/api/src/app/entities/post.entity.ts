@@ -29,18 +29,3 @@ export class PostEntity {
   @OneToMany(type => CommentEntity, comment=>comment.post)
   comments: CommentEntity[];
 }
-
-// @Entity('comment')
-// export class CommentEntity {
-//   @PrimaryGeneratedColumn('uuid')
-//   id: string;
-//   @CreateDateColumn()
-//   created: Date;
-//   @Column('text')
-//   comment: string;
-//   @ManyToOne(type => UserEntity)
-//   @JoinTable()
-//   author: UserEntity;
-//   @ManyToOne(type => PostEntity)
-//   post: PostEntity;
-// }
