@@ -1,6 +1,3 @@
-type Query {
-  users(page: Int): [User]
-}
 
 type User {
   id: String!
@@ -9,4 +6,20 @@ type User {
   bookmarks: [Post!]
   posts: [Post!]
   comments: [Comment!]
+}
+
+type Query {
+  users(page: Int): [User]
+  user(username: String!): User
+  whoami: User
+}
+
+type Auth {
+  username: String!
+  token: String!
+}
+
+type Mutation {
+  login(username: String!, password: String!): Auth!
+  register(username: String!, password: String!): Auth!
 }

@@ -17,6 +17,11 @@ export class UsersService {
     return users.map(user => user.toResponseObject());
   }
 
+  async get(username: string) {
+    const user = await this.userRepository.findOne({ where: { username }, relations: ['posts', 'bookmarks'] });
+    return user.toResponseObject();
+  }
+
   async login(data: UserDTO): Promise<UserRO> {
     const { username, password } = data;
     const user = await this.userRepository.findOne({ where: { username } });

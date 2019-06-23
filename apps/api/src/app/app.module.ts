@@ -24,14 +24,14 @@ import { GraphQLModule } from '@nestjs/graphql';
       username: process.env.API_DB_USERNAME,
       password: process.env.API_DB_PASSWORD,
       database: process.env.API_DB_NAME,
-      entities: [ UserEntity, CommentEntity, PostEntity, ],
+      entities: [UserEntity, CommentEntity, PostEntity,],
       synchronize: true,
       logging: true,
       // dropSchema: true
     }),
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
-      // autoSchemaFile: 'schema.gql',
+      context: ({ req }) => ({ headers: req.headers })
     }),
     PostsModule,
     UsersModule,
