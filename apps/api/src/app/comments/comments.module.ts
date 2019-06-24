@@ -6,6 +6,7 @@ import { PostEntity } from '../entities';
 import { UserEntity } from '../entities';
 import { CommentEntity } from '../entities';
 import { PostsModule } from '../posts/posts.module';
+import { CommentResolver } from './comments.resolver';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { PostsModule } from '../posts/posts.module';
     PostsModule
   ],
   controllers: [CommentsController],
-  providers: [CommentsService]
+  providers: [CommentsService, CommentResolver]
 })
 export class CommentsModule { }
