@@ -17,11 +17,11 @@ type Query {
 }
 
 type Mutation {
-  createPost(title:String!, description:String!) Post!
-  updatePost(id:ID!, title:String, description:String) Post!
-  deletePost(id:ID!) Post!
-  upvote(id:ID!) Post!
-  downvote(id:ID!) Post!
-  bookmark(id:ID!) Post!
-  unbookmark(id:ID!) Post!
+  createPost(title:String!, description:String!): Post!
+  updatePost(id:ID!, title:String, description:String): Post!
+  deletePost(id:ID!): Post!
+  upvote(id:ID!): Post!
+  downvote(id:ID!): Post!
+  bookmark(id:ID!): Post!
+  unbookmark(id:ID!): Post!
 }
