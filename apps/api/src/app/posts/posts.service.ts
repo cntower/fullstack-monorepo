@@ -33,13 +33,13 @@ export class PostsService {
     return post;
   };
 
-  async vote(id: string, userId: any, vote: Votes) {
+  async vote(id: string, userId: string, vote: Votes) {
     const post = await this.postRepository.findOne({ where: { id }, relations: ['author', 'upvotes', 'downvotes'] });
     const user = await this.userRepository.findOne({ where: { id: userId }, relations: ['bookmarks'] });
     return this._vote(post, user, vote);
   }
 
-  async bookmark(id: string, userId: any) {
+  async bookmark(id: string, userId: string) {
     const post = await this.postRepository.findOne({ where: { id } });
     const user = await this.userRepository.findOne({ where: { id: userId }, relations: ['bookmarks'] });
     if (user.bookmarks.find(b => b.id === post.id)) {

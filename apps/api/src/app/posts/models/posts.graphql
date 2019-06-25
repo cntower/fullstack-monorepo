@@ -1,16 +1,27 @@
 type Post {
-  id: String!
+  id: ID
   test: String
   title: String!
   description: String!
   created: String!
   updated: String!
-  comments: [Comment!]
   author: User
   upvotes: Int
   downvotes: Int
+  comments: [Comment!]
 }
 
 type Query {
-  posts(page: Int): [Post]
+  posts(page: Int): [Post!]
+  post(id: ID!): Post!
+}
+
+type Mutation {
+  createPost(title:String!, description:String!) Post!
+  updatePost(id:ID!, title:String, description:String) Post!
+  deletePost(id:ID!) Post!
+  upvote(id:ID!) Post!
+  downvote(id:ID!) Post!
+  bookmark(id:ID!) Post!
+  unbookmark(id:ID!) Post!
 }

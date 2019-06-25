@@ -1,6 +1,6 @@
 
 type User {
-  id: String!
+  id: ID
   username: String!
   created: String!
   bookmarks: [Post!]
