@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@mono/api-interface": ["libs/api-interface/src/index.ts"]
+      "@mono/api-interface": ["libs/api-interface/src/index.ts"],
+      "@app/*": ["apps/fullstack-monorepo/src/app/*"]
     },
     "rootDir": "."
   },

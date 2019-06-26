@@ -21,22 +21,26 @@ import { PostRO } from './models/post.ro';
 import { PostUserRO } from './models/post-user.ro';
 import { Votes } from '../shared/votes.enum';
 import { PostEntity } from '../entities';
+import { ApiSwaggerOperation } from '../../decorators/api-swagger-operation.decorator';
 @ApiUseTags('posts')
 @Controller('posts')
 export class PostsController {
   constructor(private postsService: PostsService) { }
 
   @Get()
+  @ApiSwaggerOperation()
   @ApiResponse({ status: 200, type: [PostUserRO] })
   getPosts(@Query('page') page: number): Promise<PostRO[]> {
     return this.postsService.getPosts(page);
   }
   @Get(':id')
+  @ApiSwaggerOperation()
   @ApiResponse({ status: 200, type: PostRO })
   getPost(@Param('id') id: string): Promise<PostUserRO> {
     return this.postsService.getPost(id);
   }
   @Post()
+  @ApiSwaggerOperation()
   @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Create post' })
@@ -47,6 +51,7 @@ export class PostsController {
   }
 
   @Put(':id')
+  @ApiSwaggerOperation()
   @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Update post' })
@@ -57,6 +62,7 @@ export class PostsController {
   }
 
   @Delete(':id')
+  @ApiSwaggerOperation()
   @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Delete post' })
@@ -68,6 +74,7 @@ export class PostsController {
 
 
   @Post(':id/upvote')
+  @ApiSwaggerOperation()
   @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Upvote post' })
@@ -77,6 +84,7 @@ export class PostsController {
   }
 
   @Post(':id/downvote')
+  @ApiSwaggerOperation()
   @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Down vote post' })
@@ -86,6 +94,7 @@ export class PostsController {
   }
 
   @Post(':id/bookmark')
+  @ApiSwaggerOperation()
   @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Bookmark post' })
@@ -95,6 +104,7 @@ export class PostsController {
   }
 
   @Delete(':id/bookmark')
+  @ApiSwaggerOperation()
   @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Unbookmark post' })

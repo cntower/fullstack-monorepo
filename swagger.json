@@ -1,0 +1,435 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The posts API description",
+    "version": "1.0",
+    "title": "Posts"
+  },
+  "basePath": "/api",
+  "tags": [
+    { "name": "users", "description": "" },
+    { "name": "posts", "description": "" },
+    { "name": "comments", "description": "" }
+  ],
+  "schemes": ["http"],
+  "securityDefinitions": {
+    "bearer": { "type": "apiKey", "name": "Authorization", "in": "header" }
+  },
+  "paths": {
+    "/hello": {
+      "get": {
+        "responses": { "200": { "description": "" } },
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/posts": {
+      "get": {
+        "parameters": [
+          { "type": "number", "name": "page", "required": true, "in": "query" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/PostUserRO" }
+            }
+          }
+        },
+        "tags": ["posts"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      },
+      "post": {
+        "summary": "Create post",
+        "parameters": [
+          {
+            "name": "PostDTO",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/PostDTO" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The post has been successfully created.",
+            "schema": { "$ref": "#/definitions/PostRO" }
+          },
+          "403": { "description": "Forbidden." }
+        },
+        "tags": ["posts"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "parameters": [
+          { "type": "string", "name": "id", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/PostRO" }
+          }
+        },
+        "tags": ["posts"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      },
+      "put": {
+        "summary": "Update post",
+        "parameters": [
+          { "type": "string", "name": "id", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "201": {
+            "description": "The post has been successfully updated.",
+            "schema": { "$ref": "#/definitions/PostRO" }
+          },
+          "403": { "description": "Forbidden." }
+        },
+        "tags": ["posts"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      },
+      "delete": {
+        "summary": "Delete post",
+        "parameters": [
+          { "type": "string", "name": "id", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "201": {
+            "description": "The post has been successfully deleted.",
+            "schema": { "type": "string" }
+          },
+          "403": { "description": "Forbidden." }
+        },
+        "tags": ["posts"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/posts/{id}/upvote": {
+      "post": {
+        "summary": "Upvote post",
+        "parameters": [
+          { "type": "string", "name": "id", "required": true, "in": "path" }
+        ],
+        "responses": { "403": { "description": "Forbidden." } },
+        "tags": ["posts"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/posts/{id}/downvote": {
+      "post": {
+        "summary": "Down vote post",
+        "parameters": [
+          { "type": "string", "name": "id", "required": true, "in": "path" }
+        ],
+        "responses": { "403": { "description": "Forbidden." } },
+        "tags": ["posts"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/posts/{id}/bookmark": {
+      "post": {
+        "summary": "Bookmark post",
+        "parameters": [
+          { "type": "string", "name": "id", "required": true, "in": "path" }
+        ],
+        "responses": { "403": { "description": "Forbidden." } },
+        "tags": ["posts"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      },
+      "delete": {
+        "summary": "Unbookmark post",
+        "parameters": [
+          { "type": "string", "name": "id", "required": true, "in": "path" }
+        ],
+        "responses": { "403": { "description": "Forbidden." } },
+        "tags": ["posts"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/users": {
+      "get": {
+        "parameters": [
+          { "type": "number", "name": "page", "required": true, "in": "query" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/UserPostsRO" }
+            }
+          }
+        },
+        "tags": ["users"],
+        "produces": ["application/json"],
+        "security": [{ "bearer": [] }],
+        "consumes": ["application/json"]
+      }
+    },
+    "/login": {
+      "post": {
+        "parameters": [
+          {
+            "name": "UserDTO",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/UserDTO" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/UserRO" }
+          }
+        },
+        "tags": ["users"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/register": {
+      "post": {
+        "parameters": [
+          {
+            "name": "UserDTO",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/UserDTO" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/UserRO" }
+          }
+        },
+        "tags": ["users"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/comments/post/{postId}": {
+      "get": {
+        "parameters": [
+          { "type": "number", "name": "page", "required": true, "in": "query" },
+          { "type": "string", "name": "postId", "required": true, "in": "path" }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["comments"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      },
+      "post": {
+        "summary": "Create comment",
+        "parameters": [
+          {
+            "name": "CommentDTO",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/CommentDTO" }
+          },
+          { "type": "string", "name": "postId", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "201": {
+            "description": "The comment has been successfully created."
+          },
+          "403": { "description": "Forbidden." }
+        },
+        "tags": ["comments"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/comments/user/{userId}": {
+      "get": {
+        "parameters": [
+          { "type": "number", "name": "page", "required": true, "in": "query" },
+          { "type": "string", "name": "userId", "required": true, "in": "path" }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["comments"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/comments/{id}": {
+      "get": {
+        "summary": "Get comment",
+        "parameters": [
+          { "type": "string", "name": "id", "required": true, "in": "path" }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["comments"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      },
+      "delete": {
+        "summary": "Delete comment",
+        "parameters": [
+          { "type": "string", "name": "id", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "201": {
+            "description": "The comment has been successfully deleted.",
+            "schema": { "type": "string" }
+          },
+          "403": { "description": "Forbidden." }
+        },
+        "tags": ["comments"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    }
+  },
+  "definitions": {
+    "UserRO": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-11-11T06:20:32.232Z"
+        },
+        "username": { "type": "string" },
+        "token": { "type": "string" }
+      },
+      "required": ["id", "created", "username"]
+    },
+    "CommentRO": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-11-11T06:20:32.232Z"
+        },
+        "comment": { "type": "string" }
+      },
+      "required": ["id", "created", "comment"]
+    },
+    "PostUserRO": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-11-11T06:20:32.232Z"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-11-11T06:20:32.232Z"
+        },
+        "author": { "$ref": "#/definitions/UserRO" },
+        "upvotes": { "type": "number" },
+        "downvotes": { "type": "number" },
+        "comments": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/CommentRO" }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "created",
+        "updated",
+        "author",
+        "upvotes",
+        "downvotes"
+      ]
+    },
+    "PostRO": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-11-11T06:20:32.232Z"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-11-11T06:20:32.232Z"
+        }
+      },
+      "required": ["id", "title", "description", "created", "updated"]
+    },
+    "PostDTO": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["title", "description"]
+    },
+    "UserPostsRO": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-11-11T06:20:32.232Z"
+        },
+        "username": { "type": "string" },
+        "token": { "type": "string" },
+        "posts": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/PostRO" }
+        },
+        "bookmarks": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/PostRO" }
+        }
+      },
+      "required": ["id", "created", "username"]
+    },
+    "UserDTO": {
+      "type": "object",
+      "properties": {
+        "username": { "type": "string" },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "example": "12345"
+        }
+      },
+      "required": ["username", "password"]
+    },
+    "CommentDTO": {
+      "type": "object",
+      "properties": { "comment": { "type": "string" } },
+      "required": ["comment"]
+    }
+  }
+}

@@ -4,9 +4,8 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/sw
 import { AuthGuard } from '../shared/auth.guard';
 import { User } from '../shared/user.decorator';
 import { CommentDTO } from './models/comment.dto';
-import { CommentEntity } from '../entities';
 import { CommentPostRO } from './models/comment-post.ro';
-import { CommentRO } from './models/comment.ro';
+import { ApiSwaggerOperation } from '../../decorators/api-swagger-operation.decorator';
 
 @ApiUseTags('comments')
 @Controller('comments')
@@ -14,16 +13,19 @@ export class CommentsController {
   constructor(private commentService: CommentsService) { }
 
   @Get('post/:postId')
+  @ApiSwaggerOperation()
   getCommentsByPost(@Param('postId') postId: string, @Query('page') page: number): Promise<CommentPostRO[]> {
     return this.commentService.getCommentsByPost(postId, page);
   }
 
   @Get('user/:userId')
+  @ApiSwaggerOperation()
   getCommentsByUser(@Param('userId') userId: string, @Query('page') page: number): Promise<CommentPostRO[]> {
     return this.commentService.getCommentsByUser(userId, page);
   }
 
   @Post('post/:postId')
+  @ApiSwaggerOperation()
   @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Create comment' })
@@ -34,6 +36,7 @@ export class CommentsController {
   }
 
   @Get(':id')
+  @ApiSwaggerOperation()
   @ApiOperation({ title: 'Get comment' })
   @ApiResponse({ status: 200 })
   getComment(@Param('id') id: string): Promise<CommentPostRO> {
@@ -41,6 +44,7 @@ export class CommentsController {
   }
 
   @Delete(':id')
+  @ApiSwaggerOperation()
   @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   @ApiOperation({ title: 'Delete comment' })
