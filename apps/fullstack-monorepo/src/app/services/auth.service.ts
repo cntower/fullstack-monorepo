@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Api } from './api.service';
+import { HttpRequest } from '@angular/common/http';
 const TOKEN_NAME = 'POST_TOKEN';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor(private apiService: Api) { }
-  login(){
+  cachedRequests: Array<HttpRequest<any>> = [];
+  public collectFailedRequest(request): void {
+    this.cachedRequests.push(request);
+  }
+  public retryFailedRequests(): void {
+    // retry the requests. this method can
+    // be called after the token is refreshed
   }
   get token() {
     return localStorage.getItem(TOKEN_NAME);
@@ -15,4 +19,5 @@ export class AuthService {
   set token(val: string) {
     localStorage.setItem(TOKEN_NAME, val);
   }
+  constructor() { }
 }
