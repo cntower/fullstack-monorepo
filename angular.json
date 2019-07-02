@@ -26,7 +26,10 @@
               "apps/fullstack-monorepo/src/favicon.ico",
               "apps/fullstack-monorepo/src/assets"
             ],
-            "styles": ["apps/fullstack-monorepo/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/fullstack-monorepo/src/styles.scss"
+            ],
             "scripts": [],
             "es5BrowserSupport": true
           },
@@ -82,7 +85,9 @@
               "apps/fullstack-monorepo/tsconfig.app.json",
               "apps/fullstack-monorepo/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -117,7 +122,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/fullstack-monorepo-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -135,7 +142,9 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -164,7 +173,9 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -189,7 +200,9 @@
               "libs/api-interface/tsconfig.lib.json",
               "libs/api-interface/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -215,7 +228,9 @@
             "outputPath": "dist/apps/data-loader",
             "main": "apps/data-loader/src/main.ts",
             "tsConfig": "apps/data-loader/tsconfig.app.json",
-            "assets": ["apps/data-loader/src/assets"]
+            "assets": [
+              "apps/data-loader/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -245,7 +260,9 @@
               "apps/data-loader/tsconfig.app.json",
               "apps/data-loader/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {

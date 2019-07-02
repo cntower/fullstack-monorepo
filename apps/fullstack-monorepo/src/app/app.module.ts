@@ -8,10 +8,19 @@ import { API_BASE_URL } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { JwtInterceptor } from './services/jwt.interceptor';
+import { AppRoutingModule } from './app-routing.module';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule
+  ],
   providers: [
     AuthService,
     {
@@ -31,4 +40,4 @@ import { JwtInterceptor } from './services/jwt.interceptor';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

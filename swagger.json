@@ -18,6 +18,8 @@
   "paths": {
     "/hello": {
       "get": {
+        "summary": "",
+        "operationId": "App_getData",
         "responses": { "200": { "description": "" } },
         "produces": ["application/json"],
         "consumes": ["application/json"]
@@ -25,6 +27,8 @@
     },
     "/posts": {
       "get": {
+        "summary": "",
+        "operationId": "Posts_getPosts",
         "parameters": [
           { "type": "number", "name": "page", "required": true, "in": "query" }
         ],
@@ -42,7 +46,8 @@
         "consumes": ["application/json"]
       },
       "post": {
-        "summary": "Create post",
+        "summary": "",
+        "operationId": "Posts_createPost",
         "parameters": [
           {
             "name": "PostDTO",
@@ -66,6 +71,8 @@
     },
     "/posts/{id}": {
       "get": {
+        "summary": "",
+        "operationId": "Posts_getPost",
         "parameters": [
           { "type": "string", "name": "id", "required": true, "in": "path" }
         ],
@@ -80,7 +87,8 @@
         "consumes": ["application/json"]
       },
       "put": {
-        "summary": "Update post",
+        "summary": "",
+        "operationId": "Posts_updatePost",
         "parameters": [
           { "type": "string", "name": "id", "required": true, "in": "path" }
         ],
@@ -97,7 +105,8 @@
         "consumes": ["application/json"]
       },
       "delete": {
-        "summary": "Delete post",
+        "summary": "",
+        "operationId": "Posts_deletePost",
         "parameters": [
           { "type": "string", "name": "id", "required": true, "in": "path" }
         ],
@@ -116,7 +125,8 @@
     },
     "/posts/{id}/upvote": {
       "post": {
-        "summary": "Upvote post",
+        "summary": "",
+        "operationId": "Posts_upvotePost",
         "parameters": [
           { "type": "string", "name": "id", "required": true, "in": "path" }
         ],
@@ -129,7 +139,8 @@
     },
     "/posts/{id}/downvote": {
       "post": {
-        "summary": "Down vote post",
+        "summary": "",
+        "operationId": "Posts_downvotePost",
         "parameters": [
           { "type": "string", "name": "id", "required": true, "in": "path" }
         ],
@@ -142,7 +153,8 @@
     },
     "/posts/{id}/bookmark": {
       "post": {
-        "summary": "Bookmark post",
+        "summary": "",
+        "operationId": "Posts_bookmarkPost",
         "parameters": [
           { "type": "string", "name": "id", "required": true, "in": "path" }
         ],
@@ -153,7 +165,8 @@
         "consumes": ["application/json"]
       },
       "delete": {
-        "summary": "Unbookmark post",
+        "summary": "",
+        "operationId": "Posts_unbookmarkPost",
         "parameters": [
           { "type": "string", "name": "id", "required": true, "in": "path" }
         ],
@@ -166,6 +179,8 @@
     },
     "/users": {
       "get": {
+        "summary": "",
+        "operationId": "Users_showAllUsers",
         "parameters": [
           { "type": "number", "name": "page", "required": true, "in": "query" }
         ],
@@ -186,6 +201,8 @@
     },
     "/login": {
       "post": {
+        "summary": "",
+        "operationId": "Users_login",
         "parameters": [
           {
             "name": "UserDTO",
@@ -207,6 +224,8 @@
     },
     "/register": {
       "post": {
+        "summary": "",
+        "operationId": "Users_register",
         "parameters": [
           {
             "name": "UserDTO",
@@ -228,6 +247,8 @@
     },
     "/comments/post/{postId}": {
       "get": {
+        "summary": "",
+        "operationId": "Comments_getCommentsByPost",
         "parameters": [
           { "type": "number", "name": "page", "required": true, "in": "query" },
           { "type": "string", "name": "postId", "required": true, "in": "path" }
@@ -238,7 +259,8 @@
         "consumes": ["application/json"]
       },
       "post": {
-        "summary": "Create comment",
+        "summary": "",
+        "operationId": "Comments_createComment",
         "parameters": [
           {
             "name": "CommentDTO",
@@ -262,6 +284,8 @@
     },
     "/comments/user/{userId}": {
       "get": {
+        "summary": "",
+        "operationId": "Comments_getCommentsByUser",
         "parameters": [
           { "type": "number", "name": "page", "required": true, "in": "query" },
           { "type": "string", "name": "userId", "required": true, "in": "path" }
@@ -274,7 +298,8 @@
     },
     "/comments/{id}": {
       "get": {
-        "summary": "Get comment",
+        "summary": "",
+        "operationId": "Comments_getComment",
         "parameters": [
           { "type": "string", "name": "id", "required": true, "in": "path" }
         ],
@@ -284,7 +309,8 @@
         "consumes": ["application/json"]
       },
       "delete": {
-        "summary": "Delete comment",
+        "summary": "",
+        "operationId": "Comments_deleteComment",
         "parameters": [
           { "type": "string", "name": "id", "required": true, "in": "path" }
         ],
@@ -417,11 +443,18 @@
     "UserDTO": {
       "type": "object",
       "properties": {
-        "username": { "type": "string" },
+        "username": {
+          "type": "string",
+          "example": "username",
+          "minLength": 4,
+          "maxLength": 64
+        },
         "password": {
           "type": "string",
           "format": "password",
-          "example": "12345"
+          "example": "password",
+          "minLength": 4,
+          "maxLength": 64
         }
       },
       "required": ["username", "password"]
