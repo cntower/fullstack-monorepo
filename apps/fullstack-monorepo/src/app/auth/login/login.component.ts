@@ -9,7 +9,7 @@ import * as fromStore from '@app/auth/state/reducers/auth.reducer';
 import { Store } from '@ngrx/store';
 import { login } from '../state/actions/auth.actions';
 import { selectAuthError, selectAuthPending } from '../state/selectors/auth.selectors';
-import { tap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -20,13 +20,14 @@ import { tap, map } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   jsonschema = swagger.definitions.UserDTO;
   fields: FormlyFieldConfig[] = [];
-  response: any;
   error$ = this.store.select(selectAuthError).pipe(
-    map(r => {
-      if (r && r['response']) {
-        this.response = r && r['response'] && JSON.parse(r['response']);
+    map(res => {
+      if (res && res['response']) {
+        const response = JSON.parse(res['response']);
+        return response.error;
+      } else {
+        return res;
       }
-      return r;
     })
   );
   pending$ = this.store.select(selectAuthPending);

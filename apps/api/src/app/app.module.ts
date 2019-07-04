@@ -1,4 +1,4 @@
-import { Module, ValidationPipe } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -14,6 +14,7 @@ import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
 import { CommentEntity } from './entities';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ReqValidationPipe } from './shared/req-validation.pipe';
 
 @Module({
   imports: [
@@ -54,7 +55,7 @@ import { GraphQLModule } from '@nestjs/graphql';
     },
     {
       provide: APP_PIPE,
-      useClass: ValidationPipe,
+      useClass: ReqValidationPipe,
     }
   ]
 })
