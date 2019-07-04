@@ -1,5 +1,8 @@
-
 <form [formGroup]="form" (ngSubmit)="submit(model)">
   <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-  <button type="submit" mat-raised-button>Submit</button>
+  <button type="submit" mat-raised-button [disabled]="pending$ | async">
+    Submit
+  </button>
 </form>
+<pre>{{ error$ | async | json }}</pre>
+<pre>{{ response | json }}</pre>

@@ -6,13 +6,10 @@ import { LoginComponent } from './login/login.component';
 import { AppFormlyModule } from '@app/app-formly/app-formly.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  USER_FEATURE_KEY,
-  initialState as userInitialState,
-  userReducer
-} from './auth-state/user.reducer';
-import { UserEffects } from './auth-state/user.effects';
-import { DataPersistence } from '@nrwl/angular';
+import * as fromAuth from './state/reducers/auth.reducer';
+import { AuthEffects } from './state/effects/auth.effects';
+import { UsersApi } from '@app/services/api.service';
+//ng generate @ngrx/schematics:feature auth/state/Auth --group --module \auth\auth.module.ts --spec false
 
 @NgModule({
   declarations: [LoginComponent],
@@ -20,11 +17,9 @@ import { DataPersistence } from '@nrwl/angular';
     CommonModule,
     AuthRoutingModule,
     AppFormlyModule,
-    StoreModule.forFeature(USER_FEATURE_KEY, userReducer, {
-      initialState: userInitialState
-    }),
-    EffectsModule.forFeature([UserEffects]),
+    StoreModule.forFeature('auth', fromAuth.reducer),
+    EffectsModule.forFeature([AuthEffects]),
   ],
-  providers: [DataPersistence]
+  providers: [UsersApi]
 })
 export class AuthModule { }

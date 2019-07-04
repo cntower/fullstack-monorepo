@@ -4,6 +4,13 @@ import { FormlyFieldConfig, FormlyFormOptions, Field } from '@ngx-formly/core';
 import { FormlyJsonschema } from '@ngx-formly/core/json-schema';
 import * as swagger from 'swagger.json'
 import { FormlyJsonschemaOptions } from '@ngx-formly/core/json-schema/formly-json-schema.service';
+import { IUserDTO, UserDTO } from '@app/services/api.service';
+import * as fromStore from '@app/auth/state/reducers/auth.reducer';
+import { Store } from '@ngrx/store';
+import { login } from '../state/actions/auth.actions';
+import { selectAuthError, selectAuthPending } from '../state/selectors/auth.selectors';
+import { tap, map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'mono-login',
@@ -13,9 +20,19 @@ import { FormlyJsonschemaOptions } from '@ngx-formly/core/json-schema/formly-jso
 export class LoginComponent implements OnInit {
   jsonschema = swagger.definitions.UserDTO;
   fields: FormlyFieldConfig[] = [];
+  response: any;
+  error$ = this.store.select(selectAuthError).pipe(
+    map(r => {
+      if (r && r['response']) {
+        this.response = r && r['response'] && JSON.parse(r['response']);
+      }
+      return r;
+    })
+  );
+  pending$ = this.store.select(selectAuthPending);
 
   form = new FormGroup({});
-  model: any = {
+  model: IUserDTO = {
     username: '',
     password: '',
   };
@@ -23,10 +40,14 @@ export class LoginComponent implements OnInit {
 
   submit(model) {
     console.log(model);
+    this.store.dispatch(login(new UserDTO(model)));
   }
   ngOnInit() {
   }
-  constructor(private formlyJsonschema: FormlyJsonschema) {
+  constructor(
+    private formlyJsonschema: FormlyJsonschema,
+    private store: Store<fromStore.State>
+  ) {
     const formlyJsonschemaOptions: FormlyJsonschemaOptions = {
       map: (mappedField: FormlyFieldConfig, mapSource: any) => {
         mappedField.templateOptions.type = mapSource['format'];
