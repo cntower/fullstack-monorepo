@@ -1,7 +1,12 @@
-<form [formGroup]="form" (ngSubmit)="submit(model)">
+<form class="login-form" [formGroup]="form" (ngSubmit)="submit(model)">
   <h1>Login</h1>
   <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-  <button type="submit" mat-raised-button [disabled]="pending$ | async">
+  <button
+    class="submit-button"
+    type="submit"
+    mat-raised-button
+    [disabled]="pending$ | async"
+  >
     Submit
   </button>
   <div class="mat-error" *ngIf="(error$ | async) as message">

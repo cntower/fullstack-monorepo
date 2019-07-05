@@ -1,9 +1,12 @@
-import { getGreeting } from "../support/app.po";
+import { getGreeting, getLoginFormSubmitButton, getLoginFormServerError } from "../support/app.po";
 
-describe("Hello Nx", () => {
-  beforeEach(() => cy.visit("/"));
-
-  it("should display welcome message", () => {
-    getGreeting().contains("Welcome to fullstack-monorepo!");
+describe("Login Form", () => {
+  beforeEach(() => cy.visit("/login"));
+  it("should display Submit button", () => {
+    getLoginFormSubmitButton().contains('Submit');
+  });
+  it("should display form validation messages", () => {
+    getLoginFormSubmitButton().click();
+    getLoginFormServerError().should(t => expect(t.length).equal(2));
   });
 });

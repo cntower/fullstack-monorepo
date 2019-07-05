@@ -22,9 +22,15 @@ export class LoginComponent implements OnInit {
   fields: FormlyFieldConfig[] = [];
   error$ = this.store.select(selectAuthError).pipe(
     map(res => {
-      if (res && res['response']) {
-        const response = JSON.parse(res['response']);
-        return response.error;
+      if (res && typeof res === 'object') {
+        try {
+          const response = JSON.parse(res.response);
+          if (response.error) {
+            return response.error
+          }
+        } catch (error) {
+          return res.message || 'Unknown error'
+        }
       } else {
         return res;
       }
