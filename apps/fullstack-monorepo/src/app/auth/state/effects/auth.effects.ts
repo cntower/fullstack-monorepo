@@ -37,7 +37,7 @@ import { AuthService } from '@app/auth/auth.service';
 export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.loginSuccess),
+      ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
       tap(
         r => this.authService.token = r.user.token
       )
@@ -50,6 +50,17 @@ export class AuthEffects {
         this.usersApi.login(action).pipe(
           map(user => AuthActions.loginSuccess({ user })),
           catchError(error => of(AuthActions.loginFailure({ error })))
+        )
+      )
+    )
+  );
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.register),
+      exhaustMap(action =>
+        this.usersApi.register(action).pipe(
+          map(user => AuthActions.registerSuccess({ user })),
+          catchError(error => of(AuthActions.registerFailure({ error })))
         )
       )
     )

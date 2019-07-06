@@ -9,10 +9,11 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromAuth from './state/reducers/auth.reducer';
 import { AuthEffects } from './state/effects/auth.effects';
 import { UsersApi } from '@app/services/api.service';
+import { RegisterComponent } from './register/register.component';
 //ng generate @ngrx/schematics:feature auth/state/Auth --group --module \auth\auth.module.ts --spec false
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

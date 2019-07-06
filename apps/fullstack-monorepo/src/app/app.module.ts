@@ -15,6 +15,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    AuthModule,
     StoreModule.forRoot(
       {},
       { metaReducers: !environment.production ? [storeFreeze] : [] }
