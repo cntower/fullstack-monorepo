@@ -22,6 +22,9 @@
     },
     "data-loader": {
       "tags": []
+    },
+    "utils": {
+      "tags": []
     }
   }
 }

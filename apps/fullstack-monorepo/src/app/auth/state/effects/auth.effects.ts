@@ -28,26 +28,35 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
+import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import * as AuthActions from '../actions/auth.actions';
 import { UsersApi } from '@app/services/api.service';
+import { AuthService } from '@app/auth/auth.service';
 
 @Injectable()
 export class AuthEffects {
+  loginSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.loginSuccess),
+      tap(
+        r => this.authService.token = r.user.token
+      )
+    ), { dispatch: false }
+  );
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
       exhaustMap(action =>
-        this.authService.login(action).pipe(
+        this.usersApi.login(action).pipe(
           map(user => AuthActions.loginSuccess({ user })),
           catchError(error => of(AuthActions.loginFailure({ error })))
         )
       )
     )
   );
-
   constructor(
     private actions$: Actions,
-    private authService: UsersApi
+    private usersApi: UsersApi,
+    private authService: AuthService
   ) { }
 }

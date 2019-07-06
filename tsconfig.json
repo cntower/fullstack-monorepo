@@ -17,7 +17,8 @@
     "baseUrl": ".",
     "paths": {
       "@mono/api-interface": ["libs/api-interface/src/index.ts"],
-      "@app/*": ["apps/fullstack-monorepo/src/app/*"]
+      "@app/*": ["apps/fullstack-monorepo/src/app/*"],
+      "@mono/utils": ["libs/utils/src/index.ts"]
     },
     "rootDir": "."
   },

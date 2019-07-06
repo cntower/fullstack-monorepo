@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
-const TOKEN_NAME = 'POST_TOKEN';
+const TOKEN_NAME = 'FS_AUTH_TOKEN';
 @Injectable({
   providedIn: 'root'
 })

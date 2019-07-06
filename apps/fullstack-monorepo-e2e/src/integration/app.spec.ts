@@ -7,6 +7,6 @@ describe("Login Form", () => {
   });
   it("should display form validation messages", () => {
     getLoginFormSubmitButton().click();
-    getLoginFormServerError().should(t => expect(t.length).equal(2));
+    getLoginFormServerError().should(t => expect(t.length).equal(3));
   });
 });
