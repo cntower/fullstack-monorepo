@@ -1,0 +1,3 @@
+<div *ngIf="(users$ | async) as users">
+  <mono-user-card *ngFor="let user of users" [user]="user"></mono-user-card>
+</div>

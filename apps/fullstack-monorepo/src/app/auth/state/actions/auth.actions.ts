@@ -1,4 +1,4 @@
-import { Action, createAction, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { UserDTO, UserRO } from '@app/services/api.service';
 
 export const login = createAction('[Login Page] Login', props<UserDTO>());
