@@ -1,0 +1,3 @@
+<div *ngIf="(posts$ | async) as posts">
+  <mono-post-card *ngFor="let post of posts" [post]="post"></mono-post-card>
+</div>

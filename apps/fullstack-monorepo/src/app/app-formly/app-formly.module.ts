@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { ArrayTypeComponent } from './array.type';
+import { MaterialModule } from '@app/material/material.module';
 
 export function minlengthValidationMessage(err, field) {
   return `Should have atleast ${field.templateOptions.minLength} characters`;
@@ -27,6 +27,7 @@ export function maxValidationMessage(err, field) {
     ArrayTypeComponent
   ],
   imports: [
+    MaterialModule,
     CommonModule,
     ReactiveFormsModule,
     FormlyModule.forRoot({
@@ -64,16 +65,13 @@ export function maxValidationMessage(err, field) {
       ],
     }),
     FormlyMaterialModule,
-    MatButtonModule,
-    MatCheckboxModule
   ],
-  exports:[
+  exports: [
     CommonModule,
+    MaterialModule,
     ReactiveFormsModule,
     FormlyModule,
     FormlyMaterialModule,
-    MatButtonModule,
-    MatCheckboxModule
   ]
 })
 export class AppFormlyModule { }

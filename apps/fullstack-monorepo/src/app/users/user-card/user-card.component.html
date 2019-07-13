@@ -1,4 +1,14 @@
-<p>
-  {{ user.username }}
-  <!-- {{user | json}} -->
-</p>
+<div class="card">
+  <mat-card>
+    <mat-card-title>
+      {{ user.username }}
+      <mat-card-subtitle>
+        Registred: {{ user.created | date }}
+      </mat-card-subtitle>
+    </mat-card-title>
+    <a href="/"> Posts: ({{ user.posts.length || 0 }}) </a>
+    <a style="margin-left: 48px;" href="/">
+      Bookmarks: ({{ user.bookmarks.length || 0 }})
+    </a>
+  </mat-card>
+</div>

@@ -85,7 +85,7 @@
               "apps/fullstack-monorepo/tsconfig.app.json",
               "apps/fullstack-monorepo/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/fullstack-monorepo/**"]
           }
         },
         "test": {
@@ -120,7 +120,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/fullstack-monorepo-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/fullstack-monorepo-e2e/**"]
           }
         }
       }
@@ -167,7 +167,7 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/api/**"]
           }
         },
         "test": {
@@ -192,7 +192,7 @@
               "libs/api-interface/tsconfig.lib.json",
               "libs/api-interface/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/api-interface/**"]
           }
         },
         "test": {
@@ -248,7 +248,7 @@
               "apps/data-loader/tsconfig.app.json",
               "apps/data-loader/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!apps/data-loader/**"]
           }
         },
         "test": {
@@ -273,7 +273,7 @@
               "libs\\utils\\tsconfig.lib.json",
               "libs/utils/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "!libs/utils/**"]
           }
         },
         "test": {

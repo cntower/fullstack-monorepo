@@ -1,0 +1,21 @@
+<div class="card">
+  <mat-card>
+    <mat-card-title>
+      <a [routerLink]="['/posts', post.id]">
+        {{ post.title }}
+      </a>
+      <mat-card-subtitle>
+        Created: {{ post.created | date }}
+      </mat-card-subtitle>
+    </mat-card-title>
+    Created by
+    <a [routerLink]="['/users', post.author.id]">{{ post.author.username }}</a>
+    on {{ post.created | date }}
+    <a style="margin-left: 48px;" href="/">
+      Votes: ({{ post.upvotes || 0 }})
+    </a>
+    <a style="margin-left: 48px;" href="/">
+      Comments: ({{ post.comments?.length || 0 }})
+    </a>
+  </mat-card>
+</div>

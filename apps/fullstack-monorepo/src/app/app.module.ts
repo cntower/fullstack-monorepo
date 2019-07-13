@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { AuthModule } from './auth/auth.module';
+import { StoreRouterConnectingModule, RouterStateSerializer, routerReducer } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,11 +28,12 @@ import { AuthModule } from './auth/auth.module';
     AppRoutingModule,
     AuthModule,
     StoreModule.forRoot(
-      {},
+      {router: routerReducer},
       { metaReducers: !environment.production ? [storeFreeze] : [] }
     ),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [
     AuthService,
