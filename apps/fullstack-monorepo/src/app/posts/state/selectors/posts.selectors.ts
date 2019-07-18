@@ -56,3 +56,9 @@ export const selectRoutePostId = createSelector(
   selectRouteParams,
   (state) => state.postId
 );
+
+export const selectRoutePost = createSelector(
+  selectPostEntities,
+  selectRoutePostId,
+  (postEntities, postId) => postEntities[postId]
+);

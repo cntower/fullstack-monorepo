@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { State } from '@app/store';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
-import { selectRoutePostId } from '../state/selectors/posts.selectors';
+import { selectRoutePost } from '../state/selectors/posts.selectors';
 
 @Component({
   selector: 'mono-post-detail',
@@ -10,13 +10,13 @@ import { selectRoutePostId } from '../state/selectors/posts.selectors';
   styleUrls: ['./post-detail.component.css']
 })
 export class PostDetailComponent implements OnInit {
-  params$ = this.store.select(selectRoutePostId)
+  params$ = this.store.select(selectRoutePost)
     .pipe(
-      tap(v=>console.log(v))
+      tap(post => {
+        console.log(post)
+      }
+      )
     )
-    .subscribe(
-      r => console.log(r)
-    );
 
   constructor(
     private store: Store<State>
