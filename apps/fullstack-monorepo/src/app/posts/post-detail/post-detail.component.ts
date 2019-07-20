@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { State } from '@app/store';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
-import { selectRoutePost } from '../state/selectors/posts.selectors';
+import { selectLoadRoutePost } from '../state/selectors/posts.selectors';
+import { Observable } from 'rxjs';
+import { PostUserRO } from '@app/services/api.service';
+import { State } from '../state/reducers/posts.reducer';
 
 @Component({
   selector: 'mono-post-detail',
@@ -10,9 +12,11 @@ import { selectRoutePost } from '../state/selectors/posts.selectors';
   styleUrls: ['./post-detail.component.css']
 })
 export class PostDetailComponent implements OnInit {
-  params$ = this.store.select(selectRoutePost)
+  post: PostUserRO;
+  post$:Observable<PostUserRO> = this.store.select(selectLoadRoutePost(this.store))
     .pipe(
       tap(post => {
+        this.post = post;
         console.log(post)
       }
       )

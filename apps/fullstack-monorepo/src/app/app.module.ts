@@ -17,11 +17,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { AuthModule } from './auth/auth.module';
 import { StoreRouterConnectingModule, RouterStateSerializer, routerReducer } from '@ngrx/router-store';
+import { ShellComponent } from './shell/shell.component';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ShellComponent],
   imports: [
     CommonModule,
+    MaterialModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,

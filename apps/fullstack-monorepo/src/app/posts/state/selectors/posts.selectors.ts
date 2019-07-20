@@ -1,21 +1,14 @@
 import {
   createSelector,
   createFeatureSelector,
-  ActionReducerMap,
+  Store,
 } from '@ngrx/store';
 import * as fromPost from '../reducers/posts.reducer';
 import { selectRouteParams } from '@app/store';
- 
-export interface State {
-  posts: fromPost.State;
-}
- 
-export const reducers: ActionReducerMap<State> = {
-  posts: fromPost.reducer,
-};
- 
+import { loadPost } from '../actions/posts.actions';
+
 export const selectPostState = createFeatureSelector<fromPost.State>('posts');
- 
+
 export const selectPostIds = createSelector(
   selectPostState,
   fromPost.selectPostIds
@@ -36,7 +29,7 @@ export const selectCurrentPostId = createSelector(
   selectPostState,
   fromPost.getSelectedPostId
 );
- 
+
 export const selectCurrentPost = createSelector(
   selectPostEntities,
   selectCurrentPostId,
@@ -62,3 +55,22 @@ export const selectRoutePost = createSelector(
   selectRoutePostId,
   (postEntities, postId) => postEntities[postId]
 );
+
+
+export function selectLoadRoutePost(store: Store<fromPost.State>) {
+  return createSelector(
+    selectPostEntities,
+    selectRoutePostId,
+    (postEntities, postId) => {
+      if (postId) {
+        if (!postEntities[postId]) {
+          store.dispatch(loadPost({ postId }));
+        } else {
+          return postEntities[postId]
+        }
+      } else {
+        return null;
+      }
+    }
+  );
+}

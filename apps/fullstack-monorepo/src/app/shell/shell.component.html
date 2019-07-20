@@ -1,0 +1,23 @@
+<mat-toolbar>
+  <a
+    class="nav-link"
+    [routerLink]="['/users']"
+    routerLinkActive="router-link-active"
+    [title]="'Users'"
+  >
+    <span class="nav-link-inner"> Users </span>
+  </a>
+  <a
+    class="nav-link"
+    [routerLink]="['/posts']"
+    routerLinkActive="router-link-active"
+    [title]="'Posts'"
+  >
+    <span class="nav-link-inner"> Posts </span>
+  </a>
+
+  <button style="margin-left: auto" mat-button (click)="logout()">
+    Logout
+  </button>
+</mat-toolbar>
+<router-outlet></router-outlet>

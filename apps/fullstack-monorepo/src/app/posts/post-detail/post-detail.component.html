@@ -1,4 +1,7 @@
-<p>
-  post-detail works!
-</p>
-<pre>{{params$ | async | json}}</pre>
+<div class="card" *ngIf="post$ | async">
+  <mono-post-card [post]="post"></mono-post-card>
+  <mat-card *ngFor="let comment of post.comments">
+    {{ comment.comment }}
+    <mat-card-subtitle> Created by <a [routerLink]="['/users', post.author.id]">{{ post.author.username }}</a> on {{ post.created | date }}</mat-card-subtitle>
+  </mat-card>
+</div>

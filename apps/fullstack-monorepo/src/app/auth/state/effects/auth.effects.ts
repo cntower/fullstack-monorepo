@@ -5,15 +5,26 @@ import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import * as AuthActions from '../actions/auth.actions';
 import { UsersApi } from '@app/services/api.service';
 import { AuthService } from '@app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.logout),
+      tap(r => {
+        this.authService.token = null
+        this.router.navigate(['/login'])
+      })
+    ), { dispatch: false }
+  );
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
-      tap(
-        r => this.authService.token = r.user.token
-      )
+      tap(r => {
+        this.authService.token = r.user.token
+        this.router.navigate(['/posts'])
+      })
     ), { dispatch: false }
   );
   login$ = createEffect(() =>
@@ -41,6 +52,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private usersApi: UsersApi,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
   ) { }
 }

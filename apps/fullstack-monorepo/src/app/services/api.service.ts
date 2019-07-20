@@ -196,7 +196,7 @@ export class PostsApi {
         return _observableOf<PostRO>(<any>null);
     }
 
-    getPost(id: string): Observable<PostRO> {
+    getPost(id: string): Observable<PostUserRO> {
         let url_ = this.baseUrl + "/posts/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -218,14 +218,14 @@ export class PostsApi {
                 try {
                     return this.processGetPost(<any>response_);
                 } catch (e) {
-                    return <Observable<PostRO>><any>_observableThrow(e);
+                    return <Observable<PostUserRO>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PostRO>><any>_observableThrow(response_);
+                return <Observable<PostUserRO>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetPost(response: HttpResponseBase): Observable<PostRO> {
+    protected processGetPost(response: HttpResponseBase): Observable<PostUserRO> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -236,7 +236,7 @@ export class PostsApi {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PostRO.fromJS(resultData200);
+            result200 = PostUserRO.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -244,7 +244,7 @@ export class PostsApi {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PostRO>(<any>null);
+        return _observableOf<PostUserRO>(<any>null);
     }
 
     /**
@@ -1193,6 +1193,53 @@ export interface IPostUserRO {
     comments?: CommentRO[] | undefined;
 }
 
+export class PostDTO implements IPostDTO {
+    title!: string;
+    description!: string;
+
+    constructor(data?: IPostDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.title = data["title"];
+            this.description = data["description"];
+        }
+    }
+
+    static fromJS(data: any): PostDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new PostDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["description"] = this.description;
+        return data; 
+    }
+
+    clone(): PostDTO {
+        const json = this.toJSON();
+        let result = new PostDTO();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IPostDTO {
+    title: string;
+    description: string;
+}
+
 export class PostRO implements IPostRO {
     id!: string;
     title!: string;
@@ -1250,53 +1297,6 @@ export interface IPostRO {
     description: string;
     created: string;
     updated: string;
-}
-
-export class PostDTO implements IPostDTO {
-    title!: string;
-    description!: string;
-
-    constructor(data?: IPostDTO) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.title = data["title"];
-            this.description = data["description"];
-        }
-    }
-
-    static fromJS(data: any): PostDTO {
-        data = typeof data === 'object' ? data : {};
-        let result = new PostDTO();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["title"] = this.title;
-        data["description"] = this.description;
-        return data; 
-    }
-
-    clone(): PostDTO {
-        const json = this.toJSON();
-        let result = new PostDTO();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IPostDTO {
-    title: string;
-    description: string;
 }
 
 export class UserPostsRO implements IUserPostsRO {

@@ -1,0 +1,18 @@
+a.nav-link {
+  margin: 0;
+  padding: 24px 0px;
+  cursor: pointer;
+
+  .nav-link-inner {
+    padding: 8px 16px;
+  }
+
+  &:focus {
+    outline: none;
+
+    .nav-link-inner {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+  }
+}

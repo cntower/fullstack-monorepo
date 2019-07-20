@@ -1,6 +1,6 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
-import { loadPosts, loadPostsSuccess, loadPostsFailure } from '../actions/posts.actions';
+import { loadPosts, loadPostsSuccess, loadPostsFailure, loadPostSuccess } from '../actions/posts.actions';
 import { PostUserRO } from '@app/services/api.service';
 
 // export interface Post {
@@ -46,6 +46,9 @@ const postReducer = createReducer(
   }),
   on(loadPostsSuccess, (state, { posts }) => {
     return {... adapter.addAll(posts, state), pending: false};
+  }),
+  on(loadPostSuccess, (state, { post }) => {
+    return {... adapter.addOne(post, state), pending: false};
   })
 );
 

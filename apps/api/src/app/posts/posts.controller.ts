@@ -30,12 +30,12 @@ export class PostsController {
   @Get()
   @ApiSwaggerOperation()
   @ApiResponse({ status: 200, type: [PostUserRO] })
-  getPosts(@Query('page') page: number): Promise<PostRO[]> {
+  getPosts(@Query('page') page: number): Promise<PostUserRO[]> {
     return this.postsService.getPosts(page);
   }
   @Get(':id')
   @ApiSwaggerOperation()
-  @ApiResponse({ status: 200, type: PostRO })
+  @ApiResponse({ status: 200, type: PostUserRO })
   getPost(@Param('id') id: string): Promise<PostUserRO> {
     return this.postsService.getPost(id);
   }
