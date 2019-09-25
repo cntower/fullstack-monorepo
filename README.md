@@ -4,29 +4,23 @@ Application based on the Kelvin Mai course [Ideas App](https://www.youtube.com/w
 
 This project was generated using [Nx](https://nx.dev).
 
-🔎 **Nx is a set of Angular CLI power-ups for modern development.**
+## Stack
 
-## Quick Start & Documentation
+- Database - PostgreSQL
+- REST API - NestJS
+- GraphQL API - NestJS
+- Rest Frontend - Angular with NGRX
 
-[30-minute video showing all Nx features](https://nx.dev/getting-started/what-is-nx)
+## Running applications
 
-[Interactive tutorial](https://nx.dev/tutorial/01-create-application)
+Run `ng serve` to start client server. 
+Run `ng serve api` to start api server. 
 
-## Generate your first application
+Run `npm start` to start both servers. 
 
-Run `ng g app myapp` to generate an application. When using Nx, you can create multiple applications and libraries in the same CLI workspace.
+## Swagger
 
-## Development server
-
-Run `ng serve myapp` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name --project=myapp` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build myapp` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+http://localhost:3333/swagger/
 
 ## Running unit tests
 
