@@ -11,6 +11,14 @@ This project was generated using [Nx](https://nx.dev).
 - GraphQL API - NestJS
 - Rest Frontend - Angular with NGRX
 
+## Prerequisite
+
+PostgreSQL v11.8 or above
+
+## Configuration
+
+Rename file ".env-sample" to ".env" and change variables values
+
 ## Running applications
 
 Run `ng serve` to start client server. 
