@@ -1,16 +1,16 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { PostRO } from '../../posts/models/post.ro';
 import { UserRO } from '../../users/models/user.ro';
 
 export class CommentPostRO {
-  @ApiModelProperty()
+  @ApiProperty()
   id?: string;
-  @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
+  @ApiProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
   created: Date;
-  @ApiModelProperty()
+  @ApiProperty()
   comment: string;
-  @ApiModelProperty()
+  @ApiProperty()
   author?: UserRO;
-  @ApiModelProperty()
+  @ApiProperty()
   post?: PostRO;
 }

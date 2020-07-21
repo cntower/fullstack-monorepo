@@ -1,13 +1,13 @@
 import { IsString } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IPostDTO } from '@mono/api-interface';
 
 export class PostDTO implements IPostDTO {
-  @ApiModelProperty()
+  @ApiProperty()
   @IsString()
   readonly title: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsString()
   readonly description: string;
 }

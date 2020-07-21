@@ -1,24 +1,24 @@
-import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { UserRO } from '../../users/models/user.ro';
 import { CommentRO } from '../../comments/models/comment.ro';
 
 export class PostUserRO {
-  @ApiModelProperty()
+  @ApiProperty()
   id?: string;
-  @ApiModelProperty()
+  @ApiProperty()
   title: string;
-  @ApiModelProperty()
+  @ApiProperty()
   description: string;
-  @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
+  @ApiProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
   created?: Date;
-  @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
+  @ApiProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
   updated?: Date;
-  @ApiModelProperty()
+  @ApiProperty()
   author?: UserRO;
-  @ApiModelProperty()
+  @ApiProperty()
   upvotes?: number;
-  @ApiModelProperty()
+  @ApiProperty()
   downvotes?: number;
-  @ApiModelPropertyOptional({ type: [CommentRO] })
+  @ApiPropertyOptional({ type: [CommentRO] })
   comments?: CommentRO[];
 }

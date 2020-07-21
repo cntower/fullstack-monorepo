@@ -1,17 +1,17 @@
-import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { PostRO } from '../../posts/models/post.ro';
 
 export class UserPostsRO {
-  @ApiModelProperty()
+  @ApiProperty()
   id: string;
-  @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
+  @ApiProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
   created?: Date;
-  @ApiModelProperty()
+  @ApiProperty()
   username: string;
-  @ApiModelPropertyOptional()
+  @ApiPropertyOptional()
   token?: string;
-  @ApiModelPropertyOptional({type: [PostRO]})
+  @ApiPropertyOptional({type: [PostRO]})
   posts?: PostRO[];
-  @ApiModelPropertyOptional({type: [PostRO]})
+  @ApiPropertyOptional({type: [PostRO]})
   bookmarks?: PostRO[];
 }

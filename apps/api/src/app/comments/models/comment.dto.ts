@@ -1,8 +1,8 @@
 import { IsString } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CommentDTO {
-  @ApiModelProperty()
+  @ApiProperty()
   @IsString()
   comment: string;
 }

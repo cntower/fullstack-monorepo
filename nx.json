@@ -12,7 +12,10 @@
       "tags": []
     },
     "fullstack-monorepo-e2e": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": [
+        "fullstack-monorepo"
+      ]
     },
     "api": {
       "tags": []
@@ -26,5 +29,21 @@
     "utils": {
       "tags": []
     }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
+      }
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
   }
 }

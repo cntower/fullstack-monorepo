@@ -1,13 +1,13 @@
 import { Controller, Get, Post, Body, UseGuards, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { ApiResponse, ApiProduces, ApiUseTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { ApiResponse, ApiProduces, ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { UserRO } from './models/user.ro';
 import { UserDTO } from './models/user.dto';
 import { AuthGuard } from '../shared/auth.guard';
 import { UserPostsRO } from './models/user-posts.ro';
 import { ApiSwaggerOperation } from '../../decorators/api-swagger-operation.decorator';
 
-@ApiUseTags('users')
+@ApiTags('users')
 @Controller()
 export class UsersController {
   constructor(private userService: UsersService) { }

@@ -1,14 +1,14 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class PostRO {
-  @ApiModelProperty()
+  @ApiProperty()
   id?:string;
-  @ApiModelProperty()
+  @ApiProperty()
   title: string;
-  @ApiModelProperty()
+  @ApiProperty()
   description: string;
-  @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
+  @ApiProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
   created?: Date;
-  @ApiModelProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
+  @ApiProperty({ type: 'string', format: 'date-time', example: '2018-11-11T06:20:32.232Z' })
   updated?: Date;
 }

@@ -13,7 +13,7 @@ export function jsonCopy(src) {
 export const formlyJsonschemaOptions: FormlyJsonschemaOptions = {
   map: (mappedField: FormlyFieldConfig, mapSource: any) => {
     mappedField.templateOptions.type = mapSource['format'];
-    mappedField.templateOptions.label = camelcaseToTitle(mappedField.key);
+    mappedField.templateOptions.label = camelcaseToTitle(mappedField.key as string);
     return mappedField;
   }
 };
