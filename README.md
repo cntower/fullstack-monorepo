@@ -18,6 +18,7 @@ PostgreSQL v11.8 or above
 ## Configuration
 
 Rename file ".env-sample" to ".env" and change variables values
+Create blank DB
 
 ## Running applications
 
